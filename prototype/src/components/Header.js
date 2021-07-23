@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback,useEffect } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import "../StyleSheet/Header.css";
 import FlipkartLogo from "./FlipkartLogo";
@@ -26,6 +26,22 @@ const Header = () => {
       ? alert(searchString)
       : alert("please enter a product to search");
   };
+  //json-server --watch data.json --port 8000
+    useEffect(() => {
+    const url = "http://localhost:8000/product";
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        console.log(json);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="header">
