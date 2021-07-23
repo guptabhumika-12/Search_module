@@ -18,6 +18,7 @@
   padding-bottom: 1px;
   object-fit: contain;
 }
+
 .header_second {
   display: flex;
 
@@ -26,7 +27,7 @@
   border-radius: 0.188rem;
 }
 .header_second > input {
-  display: felx;
+  display: flex;
   flex: 1;
   border: none;
   outline: none;
