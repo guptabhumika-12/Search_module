@@ -1,0 +1,44 @@
+.dropdown {
+  position: relative;
+  float: left;
+  width: 1000%;
+  height: 100%;
+  padding-left: 0px;
+  cursor: pointer;
+}
+.Dropdown-control:hover {
+  cursor: pointer;
+}
+.Dropdown-control {
+  position: relative;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  width: 100%;
+}
+.Dropdown-menu {
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+.Dropdown-menu ::-webkit-scrollbar {
+  display: none;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+.Dropdown-option {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+.Dropdown-option:hover {
+  cursor: pointer;
+  padding-left: 0px;
+  overflow: visible;
+  right: 0;
+  background-color: rgb(2, 14, 122);
+  width: 100%;
+  height: 100%;
+}

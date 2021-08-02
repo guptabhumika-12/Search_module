@@ -1,0 +1,151 @@
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+#loading {
+  position: fixed;
+  width: 37.5rem;
+  height: 50rem;
+  background: #fff no-repeat center;
+  z-index: 999999;
+}
+
+.html {
+  margin: 0;
+  padding: 0;
+}
+.page {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  background-color: #f1f3f6;
+}
+.common-container {
+  margin: 0 auto;
+  min-width: 978px;
+  max-width: 1680px;
+  padding: 8px;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  justify-content: center;
+  display: block;
+  margin-top: 10px;
+  padding: 10px 10px 0px 10px;
+}
+.card-container {
+  position: relative;
+  float: left;
+  display: block;
+  margin-bottom: 1rem;
+  width: 25%;
+  height: fit-content;
+}
+.card {
+  width: 100%;
+}
+.btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 10px;
+  padding: 0px 0px 0px 0px;
+}
+button {
+  padding: 0px 0px 0px 0px;
+  text-align: end;
+  float: right;
+  border: none;
+  color: rgb(93, 165, 65);
+  background-color: transparent;
+}
+button:hover {
+  border: none;
+  color: rgb(145, 238, 108);
+}
+.dropdown-container {
+  padding-left: 0px;
+  display: block;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+.filter-section {
+  padding: 0px 16px 10px 16px;
+  width: 20vw;
+  height: 100%;
+  float: left;
+  margin-right: 10px;
+  background-color: white;
+}
+.filter-header > h1 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: 30px;
+  float: left;
+  color: rgb(48, 46, 46);
+  margin-bottom: 0;
+}
+.filter-header {
+  width: 100%;
+  height: 50px;
+  display: inline-block;
+  position: relative;
+}
+.rating-container {
+  width: 100%;
+  position: relative;
+  float: left;
+}
+.row {
+  width: 75vw;
+  height: 100%;
+  display: flex;
+  padding-left: 10px;
+  background-color: white;
+  position: relative;
+  margin-right: 0;
+  min-height: 100vh;
+}
+.row .row-cols-1 .row-cols-sm-2 .row-cols-md-3 .g-3 {
+  width: 100%;
+}
+.sort-container {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  float: left;
+  padding: 10px 0px 10px 0px;
+  margin: 0 0 0 0;
+}
+.page-number {
+  list-style: none;
+  display: flex;
+}
+.page-number li {
+  padding: 10px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+@media (max-width: 576px) {
+  /* .page {
+    background-color: aqua;
+  } */
+  .filter-section {
+    width: 100vw;
+  }
+  .card-container {
+    position: relative;
+    float: left;
+    display: block;
+    margin-bottom: 1rem;
+    width: 100%;
+    height: fit-content;
+  }
+}
