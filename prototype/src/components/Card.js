@@ -1,4 +1,5 @@
 import React from "react";
+import OverflowTip from "./OverFlowTip";
 import "../StyleSheet/Card.css";
 function Card({ price, image, description, rating, title }) {
   return (
@@ -8,13 +9,12 @@ function Card({ price, image, description, rating, title }) {
       </div>
       <div className="product-details">
         <div className="card-title">
-          {title.length > 20 ? title.slice(0, 20) + "..." : title}
-
-          <small className="card-description">
-            {description.length > 50
-              ? description.slice(0, 50) + "..."
-              : description}
-          </small>
+          <div className="card-title1">
+            <OverflowTip>{title}</OverflowTip>
+            <small className="card-description">
+              <OverflowTip>{description}</OverflowTip>
+            </small>
+          </div>
         </div>
         <div className="card-size">
           <span className="card-price">₹{price}</span>

@@ -2,6 +2,8 @@ import React, { useState, useCallback } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import "../StyleSheet/Header.css";
 import DropdownMenu from "./DropdownMenu";
+import Msitemenu from "./Msitemenu";
+import TuneIcon from "@material-ui/icons/Tune";
 function Header({
   filter,
   setFilter,
@@ -10,13 +12,23 @@ function Header({
   categoryList,
   searchCategory,
   setSearchCategory,
-  selectedCategory,
   setSelectedCategory,
+  input,
+  setInput,
+  suggestion,
+  setSuggestion,
 }) {
-  const [input, setInput] = useState("");
-  const handleChange = useCallback((event) => {
-    setInput(event.target.value);
-  }, []);
+  const [open, setOpen] = useState(false);
+  const [suggestOpen, setSuggestOpen] = useState(false);
+
+  const handleChange = useCallback(
+    (event) => {
+      setInput(event.target.value);
+      console.log(event.target.value);
+      // if (input.length > 0) setSuggestOpen(true);
+    },
+    [setInput]
+  );
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -24,21 +36,12 @@ function Header({
         setSelectedOption(null);
         setSelectRating(null);
         setSelectedCategory(null);
-        if (searchCategory) {
-          setFilter({
-            s: input,
-            sort: "",
-            page: 1,
-            category: searchCategory,
-          });
-        } else {
-          setFilter({
-            s: input,
-            sort: "",
-            page: 1,
-            category: "",
-          });
-        }
+        setFilter({
+          s: input,
+          sort: "",
+          page: 1,
+          category: "",
+        });
       } else {
         alert("please enter a product to search");
       }
@@ -49,21 +52,13 @@ function Header({
       setSelectedOption(null);
       setSelectRating(null);
       setSelectedCategory(null);
-      if (searchCategory) {
-        setFilter({
-          s: input,
-          sort: "",
-          page: 1,
-          category: searchCategory,
-        });
-      } else {
-        setFilter({
-          s: input,
-          sort: "",
-          page: 1,
-          category: "",
-        });
-      }
+      setSearchCategory(null);
+      setFilter({
+        s: input,
+        sort: "",
+        page: 1,
+        category: "",
+      });
     } else {
       alert("please enter a product to search");
     }
@@ -108,26 +103,89 @@ function Header({
         </div>
 
         <div className="header_second">
-          <div className="category-dropdown">
-            <DropdownMenu
-              selectedOption={searchCategory}
-              options={categoryList}
-              filter={filter}
-              setFilter={setFilter}
-              setSelectedOption={setSearchCategory}
-              placeholder="search in"
-              parameter="c"
+          <div className="header_second1">
+            <div className="category-dropdown">
+              <DropdownMenu
+                selectedOption={searchCategory}
+                options={categoryList}
+                filter={filter}
+                setFilter={setFilter}
+                setSelectedOption={setSearchCategory}
+                placeholder="Category"
+                parameter="c"
+              />
+            </div>
+            <input
+              placeholder="What product are you looking for ?"
+              type="text"
+              value={input}
+              onKeyDown={(event) => handleKeyDown(event)}
+              onChange={(event) => handleChange(event)}
+              onBlur={() =>
+                setTimeout(() => {
+                  // setSuggestion([]);
+                  setSuggestOpen(false);
+                }, 500)
+              }
             />
+            <SearchIcon onClick={(event) => clickhandler(event)} />
           </div>
-          <input
-            placeholder="Search for products"
-            type="text"
-            onKeyDown={(event) => handleKeyDown(event)}
-            onChange={(event) => handleChange(event)}
-          />
-          <SearchIcon onClick={(event) => clickhandler(event)} />
+          <div className="header_second2">
+            {input !== "" && suggestion !== [] && !suggestOpen ? (
+              <div className="autosuggest">
+                <ul>
+                  {suggestion.slice(0, 5).map((pro) => {
+                    return (
+                      <li>
+                        <button
+                          className="autosuggestoption"
+                          value={pro.title}
+                          onClick={(event) => {
+                            setInput(event.target.value);
+                            setSelectedOption(null);
+                            setSelectRating(null);
+                            setSelectedCategory(null);
+                            setSearchCategory(null);
+                            setFilter({
+                              ...filter,
+                              s: input,
+                            });
+                            setSuggestion([]);
+                            setSuggestOpen(false);
+                          }}
+                        >
+                          {pro.title}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
-        <div className="header_third"> </div>
+      </div>
+
+      <div className="header_third">
+        <TuneIcon
+          className="MenuButton"
+          onClick={() => {
+            setOpen(!open);
+          }}
+        />
+        {open ? (
+          <Msitemenu
+            categoryList={categoryList}
+            searchCategory={searchCategory}
+            setSearchCategory={setSearchCategory}
+            open={open}
+            setOpen={setOpen}
+          />
+        ) : (
+          <div className="redundant"></div>
+        )}
       </div>
     </div>
   );

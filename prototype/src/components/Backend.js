@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
-import "../StyleSheet/trial.css";
+import "../StyleSheet/Product.css";
 const Backend = () => {
+  const [input, setInput] = useState("");
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [lastPage, setLastPage] = useState(0);
+  const [suggestion, setSuggestion] = useState([]);
+  const [lastPage, setLastPage] = useState(1);
   const [allCategory, setAllCategory] = useState([]);
-
+  const [searchCategory, setSearchCategory] = useState(null);
   const [filters, setFilter] = useState({
     s: "",
     sort: "",
@@ -15,52 +16,84 @@ const Backend = () => {
     rating: "",
     category: "",
   });
-  //get all categories in db
+  //fetch call to get all categories at start of the program
   useEffect(() => {
     (async () => {
-      const firstFetch = await fetch(`http://localhost:8000/products`);
-      let data = await firstFetch.json();
-      console.log(data);
+      const firstFetch = await fetch(
+        `http://localhost:8000/api/v1/products?limit=20`
+      );
+      let content = await firstFetch.json();
+      let list = [];
+      list = content.data.product;
       let cat = [];
+      console.log("Category", list);
 
-      data.forEach((product) => {
+      list.forEach((product) => {
         if (cat.indexOf(product.category) === -1) {
           cat.push(product.category);
         }
       });
+
       setAllCategory(cat);
     })();
-  });
+  }, []);
 
+  //fetch call for product array
   useEffect(() => {
     (async () => {
       const arr = [];
       if (filters.s) {
-        arr.push(`q=${filters.s}`);
+        arr.push(`s=${filters.s}`);
       }
       if (filters.sort) {
-        arr.push(`_sort=price&_order=${filters.sort}`);
+        if (filters.sort === "asc") arr.push(`sort=price`);
+        else arr.push(`sort=-price`);
       }
       if (filters.page) {
-        arr.push(`_page=${filters.page}&_limit=20`);
+        arr.push(`page=${filters.page}&limit=8`);
         console.log(filters.page);
       }
       if (filters.rating) {
-        arr.push(`rating=${filters.rating}`);
+        arr.push(`rating[gte]=${filters.rating}`);
       }
 
       if (filters.category) {
         arr.push(`category=${filters.category}`);
       }
-
+      let query = arr.join("&");
       const response = await fetch(
-        `http://localhost:8000/products?${arr.join("&")}`
+        `http://localhost:8000/api/v1/products?&${query}`
       );
       const content = await response.json();
-      setProducts(content);
+      let list = [];
+      list = content.data.product;
+      setLastPage(content.lastPage);
+      setProducts(list);
       setLoading(false);
     })();
   }, [filters]);
+
+  //fetch call for autsuggestions
+  useEffect(() => {
+    (async () => {
+      const arr = [];
+      if (input) {
+        arr.push(`s=${input}`);
+      }
+
+      if (searchCategory) {
+        arr.push(`category=${searchCategory}`);
+      }
+      let query = arr.join("&");
+      const response = await fetch(
+        `http://localhost:8000/api/v1/products?&${query}`
+      );
+      const content = await response.json();
+      let list = [];
+      list = content.data.product;
+      setSuggestion(list);
+    })();
+  }, [input, searchCategory]);
 
   return (
     <div>
@@ -70,6 +103,13 @@ const Backend = () => {
           filter={filters}
           setFilter={setFilter}
           allCategory={allCategory}
+          lastPage={lastPage}
+          input={input}
+          setInput={setInput}
+          searchCategory={searchCategory}
+          setSearchCategory={setSearchCategory}
+          suggestion={suggestion}
+          setSuggestion={setSuggestion}
         />
       ) : (
         <div className="loader-div">

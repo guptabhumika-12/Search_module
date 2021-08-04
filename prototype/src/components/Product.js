@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import DropdownMenu from "./DropdownMenu";
 import Header from "./Header";
 import Card from "./Card";
-import "../StyleSheet/trial.css";
-// import Pagination from "./Pagination";
+import "../StyleSheet/Product.css";
+import Pagination from "./Pagination";
 function Products(props) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectRating, setSelectRating] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [searchCategory, setSearchCategory] = useState(null);
+
   const handleButton = (event) => {
     console.log(event.target.value);
     props.setFilter({
@@ -23,10 +23,10 @@ function Products(props) {
   ];
 
   const rates = [
-    { value: "1", label: "⭐" },
-    { value: "2", label: "⭐⭐" },
-    { value: "3", label: "⭐⭐⭐" },
-    { value: "4", label: "⭐⭐⭐⭐" },
+    { value: "1", label: "⭐ & Up" },
+    { value: "2", label: "⭐⭐ & Up" },
+    { value: "3", label: "⭐⭐⭐ & Up" },
+    { value: "4", label: "⭐⭐⭐⭐ & Up" },
     { value: "5", label: "⭐⭐⭐⭐⭐" },
   ];
 
@@ -42,34 +42,14 @@ function Products(props) {
       page: 1,
     });
   };
-  // const pageChange = () => {
-  //   props.setFilter({
-  //     ...props.filter,
-  //     page: props.filter.page + 1,
-  //   });
-  // };
+
   const productCategoryList = [];
   props.products.forEach((product) => {
     if (productCategoryList.indexOf(product.category) === -1) {
       productCategoryList.push(product.category);
     }
   });
-  // let button;
-  // if (props.filter.page !== props.) {
-  //   button = (
-  //     <div>
-  //       <button
-  //         style={{
-  //           backgroundColor: "blue",
-  //           alignSelf: "center",
-  //         }}
-  //         onClick={pageChange}
-  //       >
-  //         Load more
-  //       </button>
-  //     </div>
-  //   );
-  // }
+
   return (
     <div className="page">
       <nav>
@@ -79,23 +59,28 @@ function Products(props) {
           setSelectRating={setSelectRating}
           setSelectedOption={setSelectedOption}
           categoryList={props.allCategory}
-          setSearchCategory={setSearchCategory}
-          searchCategory={searchCategory}
-          selectedCategory={selectedCategory}
+          setSearchCategory={props.setSearchCategory}
+          searchCategory={props.searchCategory}
           setSelectedCategory={setSelectedCategory}
+          input={props.input}
+          setInput={props.setInput}
+          suggestion={props.suggestion}
+          setSuggestion={props.setSuggestion}
         />
       </nav>
 
       <div className="filter-section">
         <div className="filter-header">
-          <h1>Filters </h1>
-          <button
-            onClick={(event) => {
-              handleReset(event);
-            }}
-          >
-            Clear All
-          </button>
+          <h4>Filters </h4>
+          <div className="filter-button">
+            <button
+              onClick={(event) => {
+                handleReset(event);
+              }}
+            >
+              Show All Products
+            </button>
+          </div>
         </div>
 
         <div className="dropdown-element">
@@ -127,7 +112,7 @@ function Products(props) {
             filter={props.filter}
             setFilter={props.setFilter}
             setSelectedOption={setSelectRating}
-            placeholder={"Sort: by Rating"}
+            placeholder={"Select Rating"}
             parameter="r"
           />
         </div>
@@ -150,7 +135,7 @@ function Products(props) {
               );
             })
           ) : (
-            <div className="noResult-container">
+            <div className="noResult-container" style={{ width: "100%" }}>
               <h3 style={{ color: "black" }}>Sorry, no results found!</h3>
               <h5
                 style={{
@@ -159,17 +144,23 @@ function Products(props) {
               >
                 Please check the spelling or try searching for something else
               </h5>
-              <img
+              {/* <img
                 src="https://image.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg"
                 alt="error404"
                 height="50%"
-              />
-              <div>
-                <h5>Browse Categories...</h5>
+              /> */}
+              <div
+              // style={{
+              //   width: "100%",
+              //   backgroundColor: "#2874f0",
+              // }}
+              >
+                <h1>Browse More Categories...</h1>
                 <div className="error404">
                   {props.allCategory.map((cat) => {
                     return (
                       <button
+                        className="browse404"
                         value={cat}
                         onClick={(event) => handleButton(event)}
                       >
@@ -183,11 +174,11 @@ function Products(props) {
           )}
         </div>
 
-        {/* <Pagination
+        <Pagination
           setFilter={props.setFilter}
           filter={props.filter}
-          ={props.}
-        /> */}
+          lastPage={props.lastPage}
+        />
       </div>
     </div>
   );

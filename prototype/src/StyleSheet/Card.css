@@ -1,14 +1,18 @@
 .card {
   overflow: hidden;
-  box-shadow: 0px 2px 8px 0px lightgray;
   background-color: rgba(255, 255, 255, 0.973);
-  text-align: center;
+  text-align: left;
   position: relative;
-  margin: 0.5rem;
-  height: 250px;
+  z-index: 12;
+  margin: 0.5rem 0.3rem;
+  height: 210px;
   padding: 2px 0px 4px 0px;
+  border: none;
 }
+
 .card-image {
+  position: relative;
+  z-index: 12;
   overflow: hidden;
   display: flex;
   width: 100%;
@@ -38,30 +42,39 @@
 }
 
 .card:hover .product-details {
-  transition: 0.5s;
-  transform: translateY(-20%);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .card-title {
+  cursor: pointer;
   font-weight: 600;
   font-size: 17px;
   color: rgb(29, 28, 28);
   padding-top: 5px;
-  display: flex;
-  flex-direction: column;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .card-description {
   color: rgb(145, 141, 141);
   font-style: italic;
-  padding-top: 5px;
+  padding-top: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .card-size {
   padding-top: 15px;
 }
 .product-details {
-  padding: 5px 16px 8px;
+  padding: 2px 8px 6px;
   background-color: white;
   position: relative;
   transition: 0.5s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .product-details > .card-size {
   position: relative;
@@ -94,6 +107,8 @@
     flex-direction: column;
     align-items: flex-start;
     padding-right: 20px;
+    padding-top: 5px;
+    margin-left: auto;
   }
   .card-rating {
     padding-top: 5px;
