@@ -1,0 +1,254 @@
+*,
+body {
+  font-family: "Roboto", sans-serif;
+}
+hr {
+  /* width: "500px"; */
+  border-color: "lightgrey";
+  width: 80%;
+}
+.BrowseTitle {
+  font-weight: 600;
+}
+
+button {
+  padding: 0px 0px 0px 0px;
+
+  border: none;
+  color: rgb(93, 165, 65);
+  background-color: transparent;
+}
+
+button:hover {
+  border: none;
+  color: rgb(145, 238, 108);
+}
+
+.browse404 {
+  font-size: 25px;
+  padding-bottom: 20px;
+}
+
+.card-container:hover {
+  box-shadow: 0px 2px 8px 0px lightgray;
+}
+
+.dropdown-element {
+  /* justify-content: left; */
+  text-align: left;
+  padding: 3px 0px 5px 0px;
+}
+
+.error404 {
+  display: flex;
+
+  justify-content: space-around;
+  align-items: center;
+}
+
+.error404 > button {
+  padding: 20px;
+  text-align: center;
+  margin: 10px;
+}
+
+.error404 .browse404 > button:hover {
+  border-radius: 4px;
+  color: rgb(138, 243, 135);
+  padding: 20px;
+  margin: 10px;
+  align-items: center;
+}
+
+.filter-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.filter-button {
+  padding-left: 30px;
+  margin-left: auto;
+}
+
+.filter-section {
+  grid-area: sidebar;
+  height: 100%;
+  background-color: white;
+  margin: 70px 5px 0px 24px;
+  padding: 2px 10px 0px 10px;
+  justify-content: center;
+}
+
+nav {
+  grid-area: nav;
+  position: fixed;
+  z-index: 9;
+  width: 100%;
+}
+
+.noResult-container {
+  position: absolute;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: block;
+  padding: 10px;
+  grid-area: card;
+  text-align: center;
+  margin-top: 70px;
+  background-color: white;
+  min-height: 100vh;
+}
+
+.page {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 0.2fr;
+  grid-auto-rows: min-content;
+  grid-template-areas:
+    "nav nav nav nav"
+    "sidebar main main main";
+  grid-gap: 0.2rem;
+  text-align: center;
+}
+
+.pagination {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  bottom: 10px;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+.row {
+  position: relative;
+  padding-top: 10px;
+  grid-area: main;
+  background-color: white;
+  margin: 70px 24px 0px 5px;
+  min-height: 76vh;
+  height: 100%;
+}
+
+.sorry {
+  font-weight: 400;
+}
+
+.wrapper-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 16rem);
+  grid-template-columns: "card card card card";
+  position: relative;
+  justify-content: space-evenly;
+}
+
+@media (max-width: 700px) {
+  hr {
+    width: 80%;
+  }
+
+  .card-container {
+    position: relative;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 150px;
+  }
+
+  .dropdown-element {
+    width: 50%;
+    padding: 3px 0px 5px 0px;
+    margin: 2px auto;
+    justify-content: center;
+  }
+
+  .filter-header {
+    height: 50px;
+    display: inline-block;
+    position: relative;
+  }
+  .filter-header > h4 {
+    margin: 2px auto;
+  }
+  .filter-button {
+    padding: 0px;
+  }
+  .filter-section {
+    display: flex;
+    height: 210px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 10px;
+    margin-top: 80px;
+  }
+
+  .noResult-container {
+    width: 100vw;
+  }
+
+  .page {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 1.5fr;
+    grid-auto-rows: min-content;
+    grid-template-areas:
+      "nav"
+      "sidebar"
+      "main";
+
+    justify-content: center;
+  }
+
+  .row {
+    margin-top: 10px;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .wrapper-grid {
+    /* display: grid; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+@media (max-width: 500px) {
+  hr {
+    width: 80%;
+  }
+
+  .noResult-container {
+    margin-top: 180px;
+  }
+
+  .page {
+    grid-template-rows: 1.5fr 1.5fr;
+    grid-template-areas:
+      "nav"
+      "sidebar"
+      "main";
+  }
+  .filter-section {
+    margin-top: 8rem;
+  }
+
+  .dropdown-element {
+    width: 50%;
+    padding: 3px 0px 5px 0px;
+    margin: 2px auto;
+    justify-content: center;
+  }
+}
